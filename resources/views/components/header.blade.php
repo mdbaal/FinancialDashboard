@@ -4,7 +4,6 @@
         <a href="{{ route('home') }}" class="header-btn bg-blue-400 text-white p-2 rounded drop-shadow">Dashboard</a>
         <a href="{{ route('accounts') }}" class="header-btn bg-blue-400 text-white p-2 rounded drop-shadow">Accounts</a>
         <a href="{{ route('piggybanks') }}" class="header-btn bg-blue-400 text-white p-2 rounded drop-shadow">Piggybanks</a>
-        <a href="#" class="header-btn bg-blue-400 text-white p-2 rounded drop-shadow">Accounts</a>
-        <a href="#" class="header-btn bg-blue-400 text-white p-2 rounded drop-shadow">Import Account</a>
+        <a href="{{ route('import') }}" class="header-btn bg-blue-400 text-white p-2 rounded drop-shadow">Import Account</a>
     </div>
 </header>
