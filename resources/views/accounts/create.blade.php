@@ -1,5 +1,5 @@
 <x-layout>
-    <x-slot:title>Create new account</x-slot:title>
+    <x-slot:title>Create account</x-slot:title>
     <h1 class="w-full text-3xl">Create account</h1>
 
     <div class="drop-shadow border-gray-200 rounded flex flex-row create-account justify-between gap-20">

@@ -16,7 +16,7 @@
     form .form-group label{
         font-weight: bold;
     }
-
+    form .form-group select,
     form .form-group input {
         border-radius: 3px;
         border: 1px solid theme('colors.gray.300');

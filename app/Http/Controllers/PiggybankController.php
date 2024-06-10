@@ -22,6 +22,7 @@ class PiggybankController extends Controller
     public function create()
     {
         //
+        return view('piggybanks.create');
     }
 
     /**
@@ -38,6 +39,7 @@ class PiggybankController extends Controller
     public function show(Piggybank $piggybank)
     {
         //
+        return view('piggybanks.piggybank',['piggybank'=>$piggybank]);
     }
 
     /**
