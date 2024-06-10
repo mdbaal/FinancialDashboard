@@ -1,7 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+    use App\Http\Controllers\AccountController;
+    use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('home');
+
+    Route::resource('accounts', AccountController::class)->names([
+        'index' => 'accounts'
+    ]);
+
