@@ -1,6 +1,7 @@
 <?php
 
     use App\Http\Controllers\AccountController;
+    use App\Http\Controllers\PiggybankController;
     use Illuminate\Support\Facades\Route;
 
     Route::get('/', function () {
@@ -9,6 +10,10 @@
 
     Route::resource('accounts', AccountController::class)->names([
         'index' => 'accounts'
+    ]);
+
+    Route::resource('piggybanks', PiggybankController::class)->names([
+        'index' => 'piggybanks'
     ]);
 
     Route::get('import',function(){
