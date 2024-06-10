@@ -2,6 +2,8 @@
     <x-slot:title>Piggybanks</x-slot:title>
     <h1 class="w-full text-3xl">Piggybanks</h1>
 
+    <a class="bg-blue-400 text-white rounded drop-shadow my-5 block w-fit p-1" href="{{ route('piggybanks.create') }}">Create piggybank</a>
+
     <div class="w-full drop-shadow-xl border-2 border-gray-200 rounded p-2 mt-5">
         <table class="w-full text-md text-left">
             <thead class="text-gray-700 uppercase bg-gray-50">
