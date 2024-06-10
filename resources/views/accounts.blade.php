@@ -2,7 +2,7 @@
     <x-slot:title>Accounts</x-slot:title>
     <h1 class="w-full text-3xl">Accounts</h1>
 
-    <div class="w-full drop-shadow-xl border-2 border-gray-200 rounded p-2">
+    <div class="w-full drop-shadow-xl border-2 border-gray-200 rounded p-2 mt-5">
         <table class="w-full text-md text-left">
             <thead class="text-gray-700 uppercase bg-gray-50">
             <tr>
