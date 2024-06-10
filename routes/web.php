@@ -11,3 +11,7 @@
         'index' => 'accounts'
     ]);
 
+    Route::get('import',function(){
+       return '';
+    })->name('import');
+
