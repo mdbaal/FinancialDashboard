@@ -16,20 +16,24 @@
             </tr>
             </thead>
             <tbody>
+            @foreach($accounts as $account)
              <tr class="odd:bg-gray-300">
-                 <td>Hoofdrekening</td>
-                 <td>NL64RABO1354689</td>
-                 <td class="align-middle">&euro; 500,-</td>
-                 <td class="align-middle text-green-500"><span class="material-symbols-outlined">check</span></td>
+                 <td><a href="{{ route('accounts.show',$account) }}">
+                         {{ $account->name }}
+                     </a>
+                 </td>
+                 <td>{{ $account->account_number }}</td>
+                 <td class="align-middle">&euro; {{ $account->balance }}-</td>
+                 <td class="align-middle">
+                     @if($account->savings_account)
+                     <span class="material-symbols-outlined text-green-500">check</span>
+                     @else
+                         <span class="material-symbols-outlined text-red-500">cancel</span>
+                     @endif
+                 </td>
                  <td class="text-blue-700"><a href="#"><span class="material-symbols-outlined">edit</span></a></td>
              </tr>
-             <tr class="odd:bg-gray-300">
-                 <td>Spaarrekening</td>
-                 <td>NL64RABO1354689</td>
-                 <td class="align-middle">&euro; 200,-</td>
-                 <td class="align-middle text-green-500"><span class="material-symbols-outlined">check</span></td>
-                 <td class="text-blue-700"><a href="#"><span class="material-symbols-outlined">edit</span></a></td>
-             </tr>
+            @endforeach
             </tbody>
         </table>
     </div>
