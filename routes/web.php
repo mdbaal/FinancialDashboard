@@ -17,6 +17,6 @@
     ]);
 
     Route::get('import',function(){
-       return '';
+       return view('import');
     })->name('import');
 
