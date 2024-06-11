@@ -1,6 +1,7 @@
 <?php
 
     use App\Http\Controllers\AccountController;
+    use App\Http\Controllers\AccountImport;
     use App\Http\Controllers\PiggybankController;
     use Illuminate\Support\Facades\Route;
 
@@ -19,4 +20,6 @@
     Route::get('import',function(){
        return view('import');
     })->name('import');
+
+    Route::post('createFromFile',[AccountImport::class,'CreateFromImport'])->name('createFromFile');
 
