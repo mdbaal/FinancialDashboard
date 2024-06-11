@@ -19,8 +19,8 @@ return new class extends Migration
             $table->decimal('amount',10,2);
 
 
-            $table->foreignId('account')->references('name')->on('accounts');
-            $table->foreignId('receiver')->references('name')->on('accounts');
+            $table->foreign('account')->references('name')->on('accounts');
+            $table->foreign('receiver')->references('name')->on('accounts');
         });
     }
 
