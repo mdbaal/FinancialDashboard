@@ -8,9 +8,10 @@
             <thead class="text-gray-700 uppercase bg-gray-50">
             <tr>
                 <th>ID</th>
-                <th>Transaction</th>
-                <th>Amount</th>
+                <th>Account</th>
+                <th>Receiver</th>
                 <th>Description</th>
+                <th>Amount</th>
                 <th>Edit</th>
             </tr>
             </thead>

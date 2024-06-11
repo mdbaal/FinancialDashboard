@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('name')->primary();
+            $table->string('account_number')->unique();
+            $table->decimal('balance',10,2);
+            $table->boolean('savings_account');
         });
     }
 
