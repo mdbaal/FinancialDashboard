@@ -13,6 +13,17 @@
 </head>
 <body>
 <x-header></x-header>
+@if ( session('success') )
+        <div class="alert alert-success drop-shadow-lg max-w-screen-xl mx-auto">
+            {{ session('success') }}
+        </div>
+@endif
+
+@if ( session('error') )
+        <div class="alert alert-error drop-shadow-lg max-w-screen-xl mx-auto">
+            {{ session('error') }}
+        </div>
+@endif
 
 <div class="max-w-screen-xl mx-auto my-10">
     {{$slot}}
