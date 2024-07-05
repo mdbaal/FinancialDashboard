@@ -47,4 +47,36 @@
     .create-account .import-account span{
         vertical-align: middle;
     }
+
+    .alert{
+        width: 100%;
+        border:1px solid theme('colors.gray.300');
+        border-radius: 5px;
+        padding: 10px;
+        color: #FFF;
+        background-color:#3b3b3b;
+        animation: fadeOutAnimation;
+        animation-duration: 3s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes fadeOutAnimation {
+        0% {
+            opacity: 1;
+        }
+
+        100%{
+            opacity:0;
+        }
+    }
+
+    .alert-success{
+        background-color: theme('colors.green.600');
+
+    }
+
+    .alert-error{
+        background-color: theme('colors.red.600');
+    }
 }
