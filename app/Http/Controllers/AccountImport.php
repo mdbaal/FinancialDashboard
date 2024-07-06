@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Transaction;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\LazyCollection;
 
@@ -17,7 +19,12 @@ class AccountImport extends Controller
 
         $savingsAccount = $request->input('savings_account');
 
-        $csv = $request->file('account_csv')->get();
+        try {
+            $csv = $request->file('account_csv')->get();
+        }
+        catch (FileNotFoundException $e){
+            return redirect()->back()->with('error', 'Something went wrong when uploading the file. Please try again later.');
+        }
 
         $transactions = $this->CsvToTransactionsArray($csv);
 
@@ -26,21 +33,20 @@ class AccountImport extends Controller
         //Get the latest balance after transaction
         $balance = $transactions[count($transactions)-1]['Saldo na trn'];
 
-        Account::create([
+        $account = Account::create([
             'name' => $accountName,
             'account_number' => $accountNumber,
             'balance' => str_replace(',','.',$balance),
             'savings_account' => (bool) $savingsAccount,
         ]);
 
-        // TODO: Add import of transactions
+        $this->CreateTransactions($account, $transactions);
 
         return redirect()->back()->with('success', 'CSV file imported successfully.');
     }
 
     private function CsvToTransactionsArray($csv): array{
         $csv = str_replace("\r",'',$csv);
-        //$csv = str_replace('\n','',$csv);
 
         $transactions = [];
 
@@ -60,12 +66,27 @@ class AccountImport extends Controller
             $row = str_getcsv($data);
 
             foreach([0,4,6,7,9,19] as $i){
-                $transaction[$headers[$i]] = $row[$i];
+                $transaction[$headers[$i]] = $row[$i] ;
             }
 
             $transactions[] = $transaction;
         });
 
         return $transactions;
+    }
+
+    private function CreateTransactions(Account $account, array $transactions): void
+    {
+        foreach ($transactions as $transaction){
+            $account->transactions()->create([
+                'id' => null,
+                'account' => $transaction["IBAN/BBAN"],
+                'receiver' => $transaction["Naam tegenpartij"],
+                'description' => $transaction["Omschrijving-1"],
+                'amount' => str_replace(',','.',$transaction["Bedrag"]),
+                'amount_after' => str_replace(',','.',$transaction["Saldo na trn"]),
+                'date' => $transaction["Datum"]
+            ]);
+        }
     }
 }

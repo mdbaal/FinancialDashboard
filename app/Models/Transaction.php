@@ -26,7 +26,9 @@ class Transaction extends Model
         'account',
         'receiver',
         'description',
-        'amount'
+        'amount',
+        'amount_after',
+        'date'
     ];
 
     public function account(): BelongsTo{

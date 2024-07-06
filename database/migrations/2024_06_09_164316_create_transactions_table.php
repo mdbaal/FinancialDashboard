@@ -17,10 +17,11 @@ return new class extends Migration
             $table->string('receiver');
             $table->string('description');
             $table->decimal('amount',10,2);
+            $table->decimal('amount_after',10,2);
+            $table->dateTime('date');
 
 
             $table->foreign('account')->references('name')->on('accounts');
-            $table->foreign('receiver')->references('name')->on('accounts');
         });
     }
 
