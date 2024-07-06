@@ -23,7 +23,7 @@
                      </a>
                  </td>
                  <td>{{ $account->account_number }}</td>
-                 <td class="align-middle">&euro; {{ $account->balance }}-</td>
+                 <td class="align-middle">&euro; {{ $account->balance }}</td>
                  <td class="align-middle">
                      @if($account->savings_account)
                      <span class="material-symbols-outlined text-green-500">check</span>

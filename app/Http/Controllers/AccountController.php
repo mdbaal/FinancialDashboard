@@ -31,7 +31,24 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Check if account exists already
+        if(Account::where('name', '=', $request->input('account'))->exists())
+            return redirect()->back()->with('error','Account with that name already exists.');
+
+
+        $account = $request->input('account');
+        $accountNumber = $request->input('account_number');
+        $balance = $request->input('balance');
+        $isSavings = $request->input('savings');
+
+        Account::create([
+            'name' => $account,
+            'account_number' => $accountNumber,
+            'balance' => str_replace(',','.',$balance),
+            'savings_account' => (bool) $isSavings,
+        ]);
+
+        return redirect('accounts')->with('success','Account created successfully.');
     }
 
     /**
