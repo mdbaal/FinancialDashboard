@@ -14,8 +14,8 @@
                 <input type="text" id="account_number" name="account_number">
             </div>
             <div class="form-group">
-                <label for="Balance">Balance</label>
-                <input type="number" id="Balance" name="Balance" step=".01" >
+                <label for="balance">Balance</label>
+                <input type="number" id="balance" name="balance" step=".01" >
             </div>
             <div class="form-group">
                 <label for="savings">Savings Account</label>
