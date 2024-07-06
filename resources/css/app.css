@@ -1,3 +1,82 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    .logo {
+        width: 50px;
+    }
+
+    form .form-group {
+        display: flex;
+        flex-direction: column;
+        gap:10px;
+    }
+
+    form .form-group label{
+        font-weight: bold;
+    }
+    form .form-group select,
+    form .form-group input {
+        border-radius: 3px;
+        border: 1px solid theme('colors.gray.300');
+    }
+
+    form button{
+        background: theme('colors.blue.400');
+        width: fit-content;
+        padding: 5px;
+        border-radius: 3px;
+        margin-top:20px;
+        color: #FFF;
+    }
+
+    .create-account .import-account{
+        text-align: center;
+    }
+
+    .create-account .import-account a{
+        display: block;
+        border-radius:3px;
+        width: 100%;
+        background: theme('colors.blue.400');
+        color:#fff;
+        font-size: larger;
+        padding: 5px;
+    }
+    .create-account .import-account span{
+        vertical-align: middle;
+    }
+
+    .alert{
+        width: 100%;
+        border:1px solid theme('colors.gray.300');
+        border-radius: 5px;
+        padding: 10px;
+        color: #FFF;
+        background-color:#3b3b3b;
+        animation: fadeOutAnimation;
+        animation-duration: 3s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes fadeOutAnimation {
+        0% {
+            opacity: 1;
+        }
+
+        100%{
+            opacity:0;
+        }
+    }
+
+    .alert-success{
+        background-color: theme('colors.green.600');
+
+    }
+
+    .alert-error{
+        background-color: theme('colors.red.600');
+    }
+}
