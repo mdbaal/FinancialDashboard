@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->string('name')->primary();
-            $table->string('account_number')->unique();
+            $table->string('account_number');
             $table->decimal('balance',10,2);
             $table->boolean('savings_account');
         });
