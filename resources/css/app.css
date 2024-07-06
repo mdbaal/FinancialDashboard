@@ -73,10 +73,18 @@
 
     .alert-success{
         background-color: theme('colors.green.600');
-
     }
 
     .alert-error{
         background-color: theme('colors.red.600');
+    }
+
+    .edit-account input:disabled{
+        cursor: not-allowed;
+        color: #e1e1e1;
+    }
+
+    .edit-account input[type=checkbox]{
+        cursor: pointer;
     }
 }

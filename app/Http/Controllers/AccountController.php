@@ -65,7 +65,7 @@ class AccountController extends Controller
      */
     public function edit(Account $account)
     {
-        //
+        return view('accounts.edit',['account' => $account]);
     }
 
     /**
@@ -73,7 +73,27 @@ class AccountController extends Controller
      */
     public function update(Request $request, Account $account)
     {
-        //
+        // If account name has changed. Update all transactions.
+        if($request->input('account') !== $account->name) {
+            $account->name = $request->input('account');
+            $account->save();
+
+            foreach ($account->transactions as $transaction) {
+                $transaction->account = $account->name;
+                $transaction->save();
+            }
+        }
+
+        // If any other things have changed update those as well.
+        if($request->input('account_number') !== $account->account_number)
+            $account->account_number = $request->input('account_number');
+
+        $account->savings_account = (bool)$request->input('savings');
+
+        $account->save();
+
+
+        return redirect(route('accounts.show',$account->fresh()))->with('success','Updated account successfully');
     }
 
     /**

@@ -31,7 +31,7 @@
                          <span class="material-symbols-outlined text-red-500">cancel</span>
                      @endif
                  </td>
-                 <td class="text-blue-700"><a href="#"><span class="material-symbols-outlined">edit</span></a></td>
+                 <td class="text-blue-700"><a href="{{ route('accounts.edit', $account) }}"><span class="material-symbols-outlined">edit</span></a></td>
              </tr>
             @endforeach
             </tbody>
