@@ -3,6 +3,7 @@
     use App\Http\Controllers\AccountController;
     use App\Http\Controllers\AccountImport;
     use App\Http\Controllers\PiggybankController;
+    use App\Http\Controllers\TransactionController;
     use Illuminate\Support\Facades\Route;
 
     Route::get('/', function () {
@@ -12,6 +13,8 @@
     Route::resource('accounts', AccountController::class)->names([
         'index' => 'accounts'
     ]);
+
+    Route::resource('accounts.transactions', TransactionController::class);
 
     Route::resource('piggybanks', PiggybankController::class)->names([
         'index' => 'piggybanks'
