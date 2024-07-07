@@ -18,7 +18,7 @@
             <tbody>
             @foreach($accounts as $account)
              <tr class="odd:bg-gray-300">
-                 <td><a href="{{ route('accounts.show',$account) }}">
+                 <td class="underline"><a href="{{ route('accounts.show',$account) }}">
                          {{ $account->name }}
                      </a>
                  </td>
@@ -37,4 +37,5 @@
             </tbody>
         </table>
     </div>
+
 </x-layout>

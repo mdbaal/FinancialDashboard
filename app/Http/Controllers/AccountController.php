@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -56,8 +57,9 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        //
-        return view('accounts.account',['account'=> $account]);
+        $transactions = $account->transactions()->orderBy('date','desc')->get();
+
+        return view('accounts.account',['account'=> $account,'transactions'=> $transactions]);
     }
 
     /**
@@ -92,7 +94,6 @@ class AccountController extends Controller
 
         $account->save();
 
-
         return redirect(route('accounts.show',$account->fresh()))->with('success','Updated account successfully');
     }
 
@@ -101,6 +102,13 @@ class AccountController extends Controller
      */
     public function destroy(Account $account)
     {
-        //
+        /** @var Transaction $transaction */
+        foreach ($account->transactions as $transaction){
+            $transaction->delete();
+        }
+
+        $account->delete();
+
+       return redirect('accounts')->with('success','Account deleted successfully');
     }
 }

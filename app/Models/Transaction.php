@@ -28,6 +28,7 @@ class Transaction extends Model
         'description',
         'amount',
         'amount_after',
+        'category',
         'date'
     ];
 

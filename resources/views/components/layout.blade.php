@@ -5,10 +5,10 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Financial Dashboard - {{ $title }}</title>
 
-    <!-- Fonts -->
+    <!-- Global Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
-    <!-- Styles -->
+    <!-- Global Styles and js -->
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 <body>
