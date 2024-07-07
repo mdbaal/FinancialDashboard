@@ -31,7 +31,7 @@ class TransactionController extends Controller
      */
     public function store(Request $request,Account $account)
     {
-        $balance_before = $account->transactions()->where('date','<', $request->input('date'))->first()->amount_after ?? 0;
+        $balance_before = $account->transactions()->where('date','<', $request->input('date'))->orderby('date','desc')->first()->amount_after ?? 0;
 
         $amount = str_replace(',','.', $request->input('amount'));
 
@@ -95,11 +95,56 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Transaction $transaction, Account $account)
+    public function update(Request $request, Account $account, Transaction $transaction)
     {
-        // If amount has changed, update the amount_after and then the transactions thereafter.
-        // And finally update the account balance on the last transaction
-        
+        $updateTransactions = false;
+        // If receiver changed
+        if($request->input('receiver') !== $transaction->receiver){
+            $transaction->receiver = $request->input('receiver');
+            $transaction->save();
+        }
+
+        // If desc changed
+        if($request->input('description') !== $transaction->description){
+            $transaction->description = $request->input('description');
+            $transaction->save();
+        }
+
+        // If amount changed, update amount after and set flag for updating all transactions afterward
+        $amount = str_replace(',','.', $request->input('amount'));
+        $balance_before = $account->transactions()->where('date','<', $request->input('date'))->orderby('date','desc')->first()->amount_after ?? 0;
+        if($amount !== $transaction->amount){
+            $transaction->amount = $amount;
+
+
+            $transaction->amount_after = $balance_before + $amount;
+            $transaction->save();
+
+            $updateTransactions = true;
+        }
+
+        // If date changed
+        if($request->input('date') !== $transaction->date){
+            $transaction->date = $request->input('date');
+            $transaction->save();
+        }
+
+        // If category changed
+        if($request->input('category') !== $transaction->category){
+            $transaction->category = $request->input('category');
+            $transaction->save();
+        }
+
+
+        if($updateTransactions){
+            $this->updateTransactions($account,$request->input('date'), $balance_before + $amount);
+        }
+
+        // Update account with new balance of last transaction
+        $account->balance = $account->transactions()->orderBy('date','desc')->first()->amount_after;
+        $account->save();
+
+        return redirect(route('accounts.show',['account'=>$account->fresh()]))->with('success','Transaction updated successfully');
     }
 
     /**
@@ -107,6 +152,21 @@ class TransactionController extends Controller
      */
     public function destroy(Account $account, Transaction $transaction)
     {
-        //
+        $date = $transaction->date;
+
+        $amount_before = $account->transactions()->where('date','<', $date)->orderby('date','desc')->first()->amount_after ?? 0;
+
+        try {
+            $transaction->delete();
+
+            $this->updateTransactions($account,$date,$amount_before);
+            // Update account with new balance of last transaction
+            $account->balance = $account->transactions()->orderBy('date', 'desc')->first()->amount_after;
+            $account->save();
+        }catch (\Exception $exception){
+            return redirect()->back()->with('error','Failed to delete transaction. Try again later.');
+        }
+
+        return redirect(route('accounts.show',['account'=>$account->fresh()]))->with('success','Transaction deleted successfully');
     }
 }

@@ -43,6 +43,8 @@
                     <td>
                         <form method="post"
                               action="{{ route('accounts.transactions.destroy',['account'=>$account,'transaction'=> $transaction]) }}">
+                            @csrf
+                            @method('DELETE')
                             <button class="btn-delete-small"><span class="material-symbols-outlined">delete</span>
                             </button>
                         </form>
