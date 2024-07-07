@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('description');
             $table->decimal('amount',10,2);
             $table->decimal('amount_after',10,2);
-            $table->string('category');
+            $table->string('category')->default('None');
             $table->dateTime('date',);
 
 
