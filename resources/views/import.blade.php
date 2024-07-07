@@ -11,7 +11,7 @@
             </div>
             <div class="form-group">
                 <label for="savings_account">Savings account</label>
-                <input id="savings_account" name="savings_account" type="checkbox" required>
+                <input id="savings_account" name="savings_account" type="checkbox">
             </div>
             <div class="form-group">
                 <label for="account_csv">Select CSV file to import from</label>
