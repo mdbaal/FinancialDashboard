@@ -6,11 +6,46 @@
     .logo {
         width: 50px;
     }
+    .btn{
+        border-radius: 3px;
+        color: #FFF;
+        cursor: pointer;
+        padding: 5px;
+        width: fit-content;
+        height: fit-content;
+        border:1px solid theme('colors.blue.400');
+        background-color: theme('colors.blue.400');
+    }
+
+    .btn-delete{
+        border:1px solid theme('colors.red.700');
+        background-color: theme('colors.red.700');
+
+    }
+
+    .btn-delete-small{
+        background:none;
+    }
+
+    .btn-caution{
+        border:1px solid theme('colors.amber.500');
+        background-color: theme('colors.amber.500');
+    }
+
+    .btn-cancel{
+        margin:0;
+    }
 
     form .form-group {
         display: flex;
         flex-direction: column;
         gap:10px;
+    }
+
+    form .form-group-row{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
     }
 
     form .form-group label{
@@ -86,5 +121,73 @@
 
     .edit-account input[type=checkbox]{
         cursor: pointer;
+    }
+
+    .modal-background{
+        position: absolute;
+        z-index: 9999;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0,0,0,.6);
+        left: 0;
+        top:0;
+        display: none;
+    }
+
+    .modal{
+        width: 50%;
+        margin: 25vh auto;
+        height: fit-content;
+        border:2px solid theme('colors.blue.400');
+        border-radius: 5px;
+        background-color: theme('colors.neutral.100');
+        padding: 10px;
+    }
+
+    .modal-header{
+        vertical-align: middle;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-bottom: 1px solid theme('colors.blue.300');
+        margin-bottom: 5px;
+    }
+
+    .modal-title{
+        font-size: larger;
+    }
+
+    .modal-close{
+        cursor: pointer;
+    }
+
+    .modal-body{
+
+    }
+
+    .modal-footer{
+        border-top: 1px solid theme('colors.blue.300');
+        margin-top: 5px;
+    }
+
+    .transactions-table th,
+    .transactions-table td{
+        padding: 5px;
+    }
+
+    .transactions-table tr td:nth-last-of-type(-n+2){
+        text-align: center;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .transactions-table span{
+        color: theme('colors.blue.700');
+
+    }
+
+    .create-transaction input:disabled{
+        cursor: not-allowed;
+        color: theme('colors.neutral.500');
     }
 }
