@@ -9,7 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
     <!-- Global Styles and js -->
-    @vite(['resources/css/app.css','resources/js/app.js'])
+    @vite(['resources/css/app.css'])
+    @prepend('scripts')
+        @vite('resources/js/app.js')
+    @endprepend
+
 </head>
 <body>
 <x-header></x-header>
@@ -30,5 +34,6 @@
 </div>
 
 <x-footer></x-footer>
+@stack('scripts')
 </body>
 </html>

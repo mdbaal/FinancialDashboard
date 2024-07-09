@@ -36,7 +36,7 @@
                     <td>{{ $transaction->amount }}</td>
                     <td>{{ $transaction->amount_after }}</td>
                     <td>{{ $transaction->category }}</td>
-                    <td> {{ Carbon::createFromFormat('Y-m-d H:i:s',$transaction->date)->format('d-m-y H:i') }} </td>
+                    <td> {{ Carbon::createFromFormat('Y-m-d H:i:s',$transaction->date)->format('d-m-Y') }} </td>
                     <td>
                         <a href="{{ route('accounts.transactions.edit',['account'=> $account,'transaction' => $transaction]) }}"><span
                                 class="material-symbols-outlined btn-edit">edit</span></a></td>
