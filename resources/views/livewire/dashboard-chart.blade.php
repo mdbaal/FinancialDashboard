@@ -11,6 +11,16 @@
         @endforeach
     </select>
 
+    <select wire:model="currentFilterMonth.0" wire:change="updateFilterMonth">
+        @foreach($filterMonths as $month)
+            @if($month == $currentFilterMonth)
+                <option value="{{ $month[0] }}" selected>{{ $month[1] }}</option>
+            @else
+                <option value="{{ $month[0] }}">{{ $month[1] }}</option>
+            @endif
+        @endforeach
+    </select>
+
     <div id="{{ $account->name }}-chart"></div>
 
     @prepend('scripts')
@@ -69,7 +79,29 @@
                         },
                     },
                     dataLabels: {
-                        enabled: true,
+                        enabled: false,
+
+                    },
+                    markers: {
+                        size: 5,
+                        colors: '#dd7d1f',
+                        strokeColors: '#fff',
+                        strokeWidth: 0,
+                        strokeOpacity: 0.9,
+                        strokeDashArray: 0,
+                        fillOpacity: 1,
+                        discrete: [],
+                        shape: "circle",
+                        radius: 2,
+                        offsetX: 0,
+                        offsetY: 0,
+                        onClick: undefined,
+                        onDblClick: undefined,
+                        showNullDataPoints: true,
+                        hover: {
+                            size: undefined,
+                            sizeOffset: 3
+                        }
                     },
                     stroke: {
                         width: 5,

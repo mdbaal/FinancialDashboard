@@ -190,4 +190,13 @@
         cursor: not-allowed;
         color: theme('colors.neutral.500');
     }
+
+    .dashboard-account{
+        padding: 10px;
+    }
+
+    .dashboard-account select{
+        border-radius: 3px;
+
+    }
 }

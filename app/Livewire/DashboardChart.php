@@ -12,13 +12,11 @@ class DashboardChart extends Component
     public array $transactions;
     public array $filterYears = [];
     public int $currentFilterYear;
+    public array $currentFilterMonth;
+    public array $filterMonths = [];
 
     public function render()
     {
-        // TODO: Start a view on a month instead of full year view. Add option to switch between year month day view and make the month default.
-        //      Hopefully this makes it less slow initially
-
-        // TODO: Make the points in the chart less big or just show points and show details on hover. Makes it easier to see everything.
         // Render charts for latest year available for that account
         // If not set use default of latest year
         if(!isset($this->currentFilterYear)){
@@ -28,35 +26,86 @@ class DashboardChart extends Component
             $this->currentFilterYear = $latestYear;
         }
 
-        $this->transactions = $this->account->transactions()->whereYear('date','=',$this->currentFilterYear)->get(['date','amount_after'])->transform(function($transaction){
-            $transaction->date =  Carbon::createFromFormat('Y-m-d H:i:s',$transaction->date)->format('d-m-Y');
+        if(!isset($this->currentFilterMonth)){
+            $earliestMonth = $this->account->transactions()->orderBy('date')->first()->date;
+            $earliestMonth = Carbon::createFromFormat('Y-m-d H:i:s',$earliestMonth);
 
-            return $transaction;
-        })->toArray();
+            $this->currentFilterMonth = [$earliestMonth->month,ucfirst($earliestMonth->monthName)];
+        }
+
+        $this->transactions = $this->account->transactions()
+            ->whereYear('date','=',$this->currentFilterYear)
+            ->whereMonth('date','=',$this->currentFilterMonth[0])
+            ->get(['date','amount_after'])
+            ->transform(function($transaction){
+                $transaction->date =  Carbon::createFromFormat('Y-m-d H:i:s',$transaction->date)->format('d-m-Y');
+                return $transaction;
+        }   )->toArray();
 
         // Get all filterable years
         $distinctYears = $this->account->transactions()->orderBy('date')->get()->transform(function($transaction){
             return ['year'=>Carbon::createFromFormat('Y-m-d H:i:s',$transaction->date)->year];
         })->unique('year');
 
-
         $this->filterYears = [];
         foreach ($distinctYears as $distinctYear)
             $this->filterYears[] = $distinctYear['year'];
 
+        // Get all filterable months
+        $distinctMonths = $this->account->transactions()
+            ->orderBy('date')
+            ->whereYear('date','=',$this->currentFilterYear)
+            ->get()
+            ->transform(function($transaction){
+                return ['month'=>
+                    [
+                        Carbon::createFromFormat('Y-m-d H:i:s',$transaction->date)->month,
+                        ucfirst(Carbon::createFromFormat('Y-m-d H:i:s',$transaction->date)->monthName)
+                    ]
+                ];
+            })->unique('month');
 
+        $this->filterMonths = [];
+        foreach ($distinctMonths as $distinctMonth)
+            $this->filterMonths[] = $distinctMonth['month'];
 
         return view('livewire.dashboard-chart');
     }
 
-    public function refreshChart(){
-        // TODO Use this to refresh the data on the chart.
-        //      Chart doesn't use the updated data yet. Need to do something with js probably to update that part. :(
-        $this->transactions = $this->account->transactions()->whereYear('date','=',$this->currentFilterYear)->get(['date','amount_after'])->transform(function($transaction){
-            $transaction->date =  Carbon::createFromFormat('Y-m-d H:i:s',$transaction->date)->format('d-m-Y');
+    public function updateFilterMonth(){
+        $this->currentFilterMonth[1] = ucfirst(Carbon::createFromDate($this->currentFilterYear,$this->currentFilterMonth[0],1)->monthName);
 
-            return $transaction;
-        })->toArray();
+        $this->refreshChart();
+    }
+
+    public function refreshChart(){
+        $this->transactions = $this->account->transactions()
+            ->whereYear('date','=',$this->currentFilterYear)
+            ->whereMonth('date','=',$this->currentFilterMonth[0])
+            ->get(['date','amount_after'])
+            ->transform(function($transaction){
+                $transaction->date =  Carbon::createFromFormat('Y-m-d H:i:s',$transaction->date)->format('d-m-Y');
+
+                return $transaction;
+            })->toArray();
+
+        // Get all filterable months
+        $distinctMonths = $this->account->transactions()
+            ->orderBy('date')
+            ->whereYear('date','=',$this->currentFilterYear)
+            ->get()
+            ->transform(function($transaction){
+                return ['month'=>
+                    [
+                        Carbon::createFromFormat('Y-m-d H:i:s',$transaction->date)->month,
+                        ucfirst(Carbon::createFromFormat('Y-m-d H:i:s',$transaction->date)->monthName)
+                    ]
+                ];
+            })->unique('month');
+
+        $this->filterMonths = [];
+        foreach ($distinctMonths as $distinctMonth)
+            $this->filterMonths[] = $distinctMonth['month'];
 
         $this->dispatch('refresh-chart-' . $this->account->name,transactions: $this->transactions);
     }
