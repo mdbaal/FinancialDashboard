@@ -14,6 +14,8 @@ class AccountController extends Controller
      */
     public function index()
     {
+        // TODO: Add select to the categories of transactions. Function on change.
+        // TODO: Add selection checkboxes and mass operations for transactions
         return view('accounts',[
             'accounts' => Account::all()
         ]);
