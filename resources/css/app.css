@@ -186,17 +186,33 @@
 
     }
 
+    .transactions-table thead{
+        position: sticky;
+        top:0;
+        z-index: 999;
+    }
+
+    .account-transactions{
+        height:600px;
+        overflow-y:scroll;
+    }
+
     .create-transaction input:disabled{
         cursor: not-allowed;
         color: theme('colors.neutral.500');
     }
-
+    .account-biggest-expenses,
     .dashboard-account{
         padding: 10px;
     }
-
+    .account-biggest-expenses select,
     .dashboard-account select{
         border-radius: 3px;
 
     }
+
+
+
+
+
 }

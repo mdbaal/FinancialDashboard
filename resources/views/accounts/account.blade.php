@@ -1,7 +1,7 @@
 @php use Carbon\Carbon; @endphp
 <x-layout>
     <x-slot:title>{{$account->name ?? 'Account -'}}</x-slot:title>
-    <h1 class="w-full text-3xl mb-2">Account - {{ $account->name }}</h1>
+    <h1 class="w-full text-4xl mb-2">Account - {{ $account->name }}</h1>
 
     <a class="btn btn-edit" href="{{ route('accounts.edit',$account) }}">Edit account</a>
 
@@ -12,7 +12,9 @@
     <div class="flex flex-row">
         <a href="{{ route('accounts.transactions.create',$account) }}" class="btn btn-edit">New transaction</a>
     </div>
-    <div class="w-full drop-shadow-xl border-2 border-gray-200 rounded p-2 mt-5">
+    <br>
+    <h2 class="text-3xl">Transactions</h2>
+    <div class="w-full drop-shadow-xl border-2 border-gray-200 rounded mt-5 account-transactions">
         <table class="w-full text-md text-left transactions-table">
             <thead class="text-gray-700 uppercase bg-gray-50">
             <tr>
@@ -54,6 +56,14 @@
             </tbody>
         </table>
     </div>
+    <br>
+
+    <h2 class="text-3xl">Biggest expenses</h2>
+    <div class="w-full drop-shadow-xl border-2 border-gray-200 rounded mt-5 account-mostspent-chart">
+        <livewire:most-spent-chart :account="$account"></livewire:most-spent-chart>
+    </div>
+
+    <!-- account delete modal -->
     <div class="modal-background">
         <div class="modal delete-modal">
             <div class="modal-header">
@@ -80,5 +90,9 @@
             </div>
         </div>
     </div>
+    @prepend('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script>const charts = {};</script>
+    @endprepend
     @vite('resources/js/deletemodal.js')
 </x-layout>
