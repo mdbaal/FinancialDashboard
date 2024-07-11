@@ -24,8 +24,6 @@
 
     @prepend('scripts')
         <script>
-
-
             (function () {
                 let categories = [];
                 let transactions = @json( $transactions );
@@ -38,7 +36,6 @@
                         }
                     );
                 }
-
 
                 const options = {
                     chart: {

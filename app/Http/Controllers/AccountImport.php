@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
-use App\Models\Transaction;
+use App\Models\Category;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\LazyCollection;
@@ -77,6 +77,8 @@ class AccountImport extends Controller
 
     private function CreateTransactions(Account $account, array $transactions): void
     {
+        Category::firstOrCreate(['name'=>'None']);
+
         foreach ($transactions as $transaction){
             $account->transactions()->create([
                 'id' => null,
@@ -85,6 +87,7 @@ class AccountImport extends Controller
                 'description' => $transaction["Omschrijving-1"],
                 'amount' => str_replace(',','.',$transaction["Bedrag"]),
                 'amount_after' => str_replace(',','.',$transaction["Saldo na trn"]),
+                'category' => 'None',
                 'date' => $transaction["Datum"]
             ]);
         }
