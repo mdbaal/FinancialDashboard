@@ -31,10 +31,8 @@ class MostSpentChart extends Component
         }
 
         if(!isset($this->currentFilterMonth)){
-            $earliestMonth = $this->account->transactions()->orderBy('date','desc')->first()->date ?? Carbon::now();
-            $earliestMonth = Carbon::createFromFormat('Y-m-d H:i:s',$earliestMonth);
 
-            $this->currentFilterMonth = [$earliestMonth->month,ucfirst($earliestMonth->monthName)];
+            $this->currentFilterMonth = [0,"Total"];
         }
 
         $this->transactions = $this->getBiggestExpenses();
@@ -59,7 +57,7 @@ class MostSpentChart extends Component
         $this->setDistinctMonths();
 
         if(!in_array($this->currentFilterMonth,$this->filterMonths)){
-            $this->currentFilterMonth = [1,'Januari'];
+            $this->currentFilterMonth = [0,'Total'];
         }
 
         $this->transactions = $this->getBiggestExpenses();
@@ -99,20 +97,31 @@ class MostSpentChart extends Component
 
     private function getFilteredTransactions(): HasMany
     {
-        return $this->account->transactions()
-            ->whereYear('date','=',$this->currentFilterYear)
-            ->whereMonth('date','=',$this->currentFilterMonth[0]);
+        if($this->currentFilterMonth[1] === "Total")
+            return $this->account->transactions()
+                ->whereYear('date','=',$this->currentFilterYear);
+        else
+            return $this->account->transactions()
+                ->whereYear('date','=',$this->currentFilterYear)
+                ->whereMonth('date','=',$this->currentFilterMonth[0]);
     }
 
     private function getTotalPerCategory(): array
     {
         $byCategory = [];
         // Get all categories, Change to table of categories later.
-        $categories = $this->account->transactions()
-            ->where('category','!=','None')
-            ->whereYear('date','=',$this->currentFilterYear)
-            ->whereMonth('date','=',$this->currentFilterMonth[0])
-            ->distinct()->get();
+        if($this->currentFilterMonth[1] === "Total")
+            $categories = $this->account->transactions()
+                ->where('category','!=','None')
+                ->whereYear('date','=',$this->currentFilterYear)
+                ->distinct()->get();
+        else
+            $categories = $this->account->transactions()
+                ->where('category','!=','None')
+                ->whereYear('date','=',$this->currentFilterYear)
+                ->whereMonth('date','=',$this->currentFilterMonth[0])
+                ->distinct()->get();
+
         // Loop through and get total per in array like ["car", 100]
         foreach($categories as $category){
             $byCategory[$category->category] = abs($this->getFilteredTransactions()->where('category','=',$category->category)->sum('amount'));
