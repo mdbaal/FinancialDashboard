@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Category;
 use App\Models\Transaction;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        // Wont be used
+        // Won't be used
     }
 
     /**
@@ -34,6 +35,8 @@ class TransactionController extends Controller
         $balance_before = $account->transactions()->where('date','<', $request->input('date'))->orderby('date','desc')->first()->amount_after ?? 0;
 
         $amount = str_replace(',','.', $request->input('amount'));
+
+        Category::firstOrCreate(['name'=> $request->input('category')]);
 
         // store new transaction to account
         $account->transactions()->create([
@@ -131,6 +134,7 @@ class TransactionController extends Controller
 
         // If category changed
         if($request->input('category') !== $transaction->category){
+            Category::firstOrCreate(['name'=> $request->input('category')]);
             $transaction->category = $request->input('category');
             $transaction->save();
         }
