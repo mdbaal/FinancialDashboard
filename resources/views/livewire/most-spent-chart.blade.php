@@ -11,6 +11,7 @@
     </select>
 
     <select wire:model="currentFilterMonth.0" wire:change="updateFilterMonth">
+        <option value="Total">Total</option>
         @foreach($filterMonths as $month)
             @if($month == $currentFilterMonth)
                 <option value="{{ $month[0] }}" selected>{{ $month[1] }}</option>
