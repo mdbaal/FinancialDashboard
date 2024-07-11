@@ -20,11 +20,12 @@
     .btn-delete{
         border:1px solid theme('colors.red.700');
         background-color: theme('colors.red.700');
-
     }
 
     .btn-delete-small{
         background:none;
+        border:none;
+        color: theme('colors.red.700');
     }
 
     .btn-caution{
@@ -211,8 +212,20 @@
 
     }
 
+    .assign-by-receiver{
+        display: flex;
+        flex-direction: row;
+        gap:20px;
+    }
 
+    .assign-by-receiver-select{
+        display: flex;
+        flex-direction: column;
+    }
 
+    .assign-by-receiver-select select{
+        border-radius: 3px;
+    }
 
 
 }

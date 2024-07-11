@@ -1,4 +1,5 @@
-@php use Carbon\Carbon; @endphp
+@php
+    use Carbon\Carbon; @endphp
 <x-layout>
     <x-slot:title>{{$account->name ?? 'Account -'}}</x-slot:title>
     <h1 class="w-full text-4xl mb-2">Account - {{ $account->name }}</h1>
@@ -14,48 +15,7 @@
     </div>
     <br>
     <h2 class="text-3xl">Transactions</h2>
-    <div class="w-full drop-shadow-xl border-2 border-gray-200 rounded mt-5 account-transactions">
-        <table class="w-full text-md text-left transactions-table">
-            <thead class="text-gray-700 uppercase bg-gray-50">
-            <tr>
-                <th>Account</th>
-                <th>Receiver</th>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Amount After</th>
-                <th>Category</th>
-                <th>Date</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach( $transactions as $transaction)
-                <tr>
-                    <td>{{ $transaction->account }}</td>
-                    <td>{{ $transaction->receiver }}</td>
-                    <td>{{ $transaction->description }}</td>
-                    <td>{{ $transaction->amount }}</td>
-                    <td>{{ $transaction->amount_after }}</td>
-                    <td>{{ $transaction->category }}</td>
-                    <td> {{ Carbon::createFromFormat('Y-m-d H:i:s',$transaction->date)->format('d-m-Y') }} </td>
-                    <td>
-                        <a href="{{ route('accounts.transactions.edit',['account'=> $account,'transaction' => $transaction]) }}"><span
-                                class="material-symbols-outlined btn-edit">edit</span></a></td>
-                    <td>
-                        <form method="post"
-                              action="{{ route('accounts.transactions.destroy',['account'=>$account,'transaction'=> $transaction]) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn-delete-small"><span class="material-symbols-outlined">delete</span>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
+    <livewire:transaction-table :transactions="$transactions" :account="$account"></livewire:transaction-table>
     <br>
 
     <h2 class="text-3xl">Biggest expenses</h2>

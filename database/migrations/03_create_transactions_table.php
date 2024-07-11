@@ -23,6 +23,7 @@ return new class extends Migration
 
 
             $table->foreign('account')->references('name')->on('accounts');
+            $table->foreign('category')->references('name')->on('categories');
         });
     }
 

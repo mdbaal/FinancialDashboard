@@ -17,6 +17,8 @@ class MostSpentChart extends Component
     public array $currentFilterMonth;
     public array $filterMonths = [];
 
+    protected $listeners = ['updatedCategories'=>'refreshChart'];
+
     public function render()
     {
         // Render charts for latest year available for that account
@@ -113,7 +115,7 @@ class MostSpentChart extends Component
             ->distinct()->get();
         // Loop through and get total per in array like ["car", 100]
         foreach($categories as $category){
-            $byCategory[$category->category] = $this->getFilteredTransactions()->where('category','=',$category->category)->sum('amount');
+            $byCategory[$category->category] = abs($this->getFilteredTransactions()->where('category','=',$category->category)->sum('amount'));
         }
 
         return $byCategory;
