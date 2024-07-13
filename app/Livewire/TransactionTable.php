@@ -23,7 +23,7 @@
         
         public function render()
         {
-            // TODO: Add filter for table. Start with year:all and then year:month, Then within those sort receiver,amount and category
+            // TODO: Add filter for table. Start with year:all and then year:month, Then within those sort all, receiver or category
             // Render charts for latest year available for that account
             // If not set use default of latest year
             if (!isset($this->currentFilterYear)) {
