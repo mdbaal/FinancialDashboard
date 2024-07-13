@@ -6,10 +6,12 @@
     <title>Financial Dashboard - {{ $title }}</title>
 
     <!-- Global Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
     <!-- Global Styles and js -->
     @vite(['resources/css/app.css'])
+    @stack('styles')
+
     @prepend('scripts')
         @vite('resources/js/app.js')
     @endprepend
@@ -18,15 +20,15 @@
 <body>
 <x-header></x-header>
 @if ( session('success') )
-        <div class="alert alert-success drop-shadow-lg max-w-screen-xl mx-auto">
-            {{ session('success') }}
-        </div>
+    <div class="alert alert-success drop-shadow-lg max-w-screen-xl mx-auto">
+        {{ session('success') }}
+    </div>
 @endif
 
 @if ( session('error') )
-        <div class="alert alert-error drop-shadow-lg max-w-screen-xl mx-auto">
-            {{ session('error') }}
-        </div>
+    <div class="alert alert-error drop-shadow-lg max-w-screen-xl mx-auto">
+        {{ session('error') }}
+    </div>
 @endif
 
 <div class="max-w-screen-xl mx-auto my-10">
