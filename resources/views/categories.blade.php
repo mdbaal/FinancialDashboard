@@ -15,27 +15,30 @@
             <thead class="text-gray-700 uppercase bg-gray-50">
             <tr>
                 <th>Name</th>
+                <th>Amount</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
             </thead>
             <tbody>
             @foreach( $categories as $category)
-                <tr class="odd:bg-gray-300"><td class="w-full">{{ $category->name }}</td>
-                <td class="text-center">
-                    <a href="{{ route('categories.edit',[$category]) }}"><span
-                            class="material-symbols-outlined btn btn-edit">edit</span>
-                    </a>
-                </td>
-                <td class="text-center">
-                    <form method="post"
-                          action="{{ route('categories.destroy',[$category]) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-delete-small"><span class="material-symbols-outlined">delete</span>
-                        </button>
-                    </form>
-                </td>
+                <tr class="odd:bg-gray-300">
+                    <td class="w-1/2">{{ $category->name }}</td>
+                    <td class="w-1/2">{{ $countPerCat[$category->name] }}</td>
+                    <td class="text-center">
+                        <a href="{{ route('categories.edit',[$category]) }}"><span
+                                class="material-symbols-outlined btn btn-edit">edit</span>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <form method="post"
+                              action="{{ route('categories.destroy',[$category]) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-delete-small"><span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

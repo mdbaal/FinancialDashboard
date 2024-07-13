@@ -6,91 +6,94 @@
     .logo {
         width: 50px;
     }
-    .btn{
+
+    .btn {
         border-radius: 3px;
         color: #FFF;
         cursor: pointer;
         padding: 5px;
         width: fit-content;
         height: fit-content;
-        border:1px solid theme('colors.blue.400');
+        border: 1px solid theme('colors.blue.400');
         background-color: theme('colors.blue.400');
     }
 
-    .btn-delete{
-        border:1px solid theme('colors.red.700');
+    .btn-delete {
+        border: 1px solid theme('colors.red.700');
         background-color: theme('colors.red.700');
     }
 
-    .btn-delete-small{
-        background:none;
-        border:none;
+    .btn-delete-small {
+        background: none;
+        border: none;
         color: theme('colors.red.700');
     }
 
-    .btn-caution{
-        border:1px solid theme('colors.amber.500');
+    .btn-caution {
+        border: 1px solid theme('colors.amber.500');
         background-color: theme('colors.amber.500');
     }
 
-    .btn-cancel{
-        margin:0;
+    .btn-cancel {
+        margin: 0;
     }
 
     form .form-group {
         display: flex;
         flex-direction: column;
-        gap:10px;
+        gap: 10px;
     }
 
-    form .form-group-row{
+    form .form-group-row {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
     }
 
-    form .form-group label{
+    form .form-group label {
         font-weight: bold;
     }
+
     form .form-group select,
     form .form-group input {
         border-radius: 3px;
         border: 1px solid theme('colors.gray.300');
     }
 
-    form button{
+    form button {
         background: theme('colors.blue.400');
         width: fit-content;
         padding: 5px;
         border-radius: 3px;
-        margin-top:20px;
+        margin-top: 20px;
         color: #FFF;
     }
 
-    .create-account .import-account{
+    .create-account .import-account {
         text-align: center;
     }
 
-    .create-account .import-account a{
+    .create-account .import-account a {
         display: block;
-        border-radius:3px;
+        border-radius: 3px;
         width: 100%;
         background: theme('colors.blue.400');
-        color:#fff;
+        color: #fff;
         font-size: larger;
         padding: 5px;
     }
-    .create-account .import-account span{
+
+    .create-account .import-account span {
         vertical-align: middle;
     }
 
-    .alert{
+    .alert {
         width: 100%;
-        border:1px solid theme('colors.gray.300');
+        border: 1px solid theme('colors.gray.300');
         border-radius: 5px;
         padding: 10px;
         color: #FFF;
-        background-color:#3b3b3b;
+        background-color: #3b3b3b;
         animation: fadeOutAnimation;
         animation-duration: 3s;
         animation-iteration-count: 1;
@@ -102,50 +105,50 @@
             opacity: 1;
         }
 
-        100%{
-            opacity:0;
+        100% {
+            opacity: 0;
         }
     }
 
-    .alert-success{
+    .alert-success {
         background-color: theme('colors.green.600');
     }
 
-    .alert-error{
+    .alert-error {
         background-color: theme('colors.red.600');
     }
 
-    .edit-account input:disabled{
+    .edit-account input:disabled {
         cursor: not-allowed;
         color: #e1e1e1;
     }
 
-    .edit-account input[type=checkbox]{
+    .edit-account input[type=checkbox] {
         cursor: pointer;
     }
 
-    .modal-background{
+    .modal-background {
         position: absolute;
         z-index: 9999;
         width: 100vw;
         height: 100vh;
-        background-color: rgba(0,0,0,.6);
+        background-color: rgba(0, 0, 0, .6);
         left: 0;
-        top:0;
+        top: 0;
         display: none;
     }
 
-    .modal{
+    .modal {
         width: 50%;
         margin: 25vh auto;
         height: fit-content;
-        border:2px solid theme('colors.blue.400');
+        border: 2px solid theme('colors.blue.400');
         border-radius: 5px;
         background-color: theme('colors.neutral.100');
         padding: 10px;
     }
 
-    .modal-header{
+    .modal-header {
         vertical-align: middle;
         display: flex;
         flex-direction: row;
@@ -154,76 +157,76 @@
         margin-bottom: 5px;
     }
 
-    .modal-title{
+    .modal-title {
         font-size: larger;
     }
 
-    .modal-close{
+    .modal-close {
         cursor: pointer;
     }
 
-    .modal-body{
+    .modal-body {
 
     }
 
-    .modal-footer{
+    .modal-footer {
         border-top: 1px solid theme('colors.blue.300');
         margin-top: 5px;
     }
 
     .transactions-table th,
-    .transactions-table td{
+    .transactions-table td {
         padding: 5px;
     }
 
-    .transactions-table tr td:nth-last-of-type(-n+2){
+    .transactions-table tr td:nth-last-of-type(-n+2) {
         text-align: center;
         cursor: pointer;
         padding: 0;
     }
 
-    .transactions-table span{
+    .transactions-table span {
         color: theme('colors.blue.700');
-
     }
 
-    .transactions-table thead{
+    .transactions-table thead {
         position: sticky;
-        top:0;
+        top: 0;
         z-index: 999;
     }
 
-    .account-transactions{
-        height:600px;
-        overflow-y:scroll;
+    .account-transactions {
+        height: 600px;
+        overflow-y: scroll;
     }
 
-    .create-transaction input:disabled{
+    .create-transaction input:disabled {
         cursor: not-allowed;
         color: theme('colors.neutral.500');
     }
+
     .account-biggest-expenses,
-    .dashboard-account{
+    .dashboard-account {
         padding: 10px;
     }
-    .account-biggest-expenses select,
-    .dashboard-account select{
-        border-radius: 3px;
 
+    .account-biggest-expenses select,
+    .dashboard-account select {
+        border-radius: 3px;
     }
 
-    .assign-by-receiver{
+    .assign-by-receiver {
         display: flex;
         flex-direction: row;
-        gap:20px;
+        gap: 20px;
     }
 
-    .assign-by-receiver-select{
+    .assign-by-receiver-select {
         display: flex;
         flex-direction: column;
     }
 
-    .assign-by-receiver-select select{
+    .assign-by-receiver-select select {
         border-radius: 3px;
     }
 

@@ -15,12 +15,12 @@
     </div>
     <br>
     <h2 class="text-3xl">Transactions</h2>
-    <livewire:transaction-table :transactions="$transactions" :account="$account"></livewire:transaction-table>
+    <livewire:transaction-table :$account></livewire:transaction-table>
     <br>
 
     <h2 class="text-3xl">Biggest expenses</h2>
     <div class="w-full drop-shadow-xl border-2 border-gray-200 rounded mt-5 account-mostspent-chart">
-        <livewire:most-spent-chart :account="$account"></livewire:most-spent-chart>
+        <livewire:most-spent-chart :$account></livewire:most-spent-chart>
     </div>
 
     <!-- account delete modal -->
