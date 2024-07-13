@@ -18,13 +18,17 @@
         
         protected $listeners = ['updatedCategories' => 'refreshChart'];
         
-        // TODO: Filter on negative amounts only and make new object for Biggest income only counting positives.
         public function render()
         {
             // Render charts for latest year available for that account
             // If not set use default of latest year
             if (!isset($this->currentFilterYear)) {
-                $latestYear = $this->account->transactions()->orderBy('date', 'desc')->first()->date ?? Carbon::now();
+                $latestYear = $this->account->transactions()
+                    ->where('amount', '<', '0')
+                    ->orderBy('date', 'desc')
+                    ->first()
+                    ->date ?? Carbon::now();
+                
                 $latestYear = Carbon::createFromFormat('Y-m-d H:i:s', $latestYear)->year;
                 
                 $this->currentFilterYear = $latestYear;
@@ -69,9 +73,12 @@
         
         private function setFilterYears(): void
         {
-            $distinctYears = $this->account->transactions()->orderBy('date')->get()->transform(function ($transaction) {
-                return ['year' => Carbon::createFromFormat('Y-m-d H:i:s', $transaction->date)->year];
-            })->unique('year');
+            $distinctYears = $this->account->transactions()
+                ->orderBy('date')
+                ->get()
+                ->transform(function ($transaction) {
+                    return ['year' => Carbon::createFromFormat('Y-m-d H:i:s', $transaction->date)->year];
+                })->unique('year');
             
             $this->filterYears = [];
             foreach ($distinctYears as $distinctYear)
@@ -127,7 +134,10 @@
             
             // Loop through and get total per in array like ["car", 100]
             foreach ($categories as $category) {
-                $byCategory[$category->category] = abs($this->getFilteredTransactions()->where('category', '=', $category->category)->sum('amount'));
+                $byCategory[$category->category] = abs($this->getFilteredTransactions()
+                    ->where('amount', '<', '0')
+                    ->where('category', '=', $category->category)
+                    ->sum('amount'));
             }
             
             return $byCategory;
