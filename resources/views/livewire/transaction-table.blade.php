@@ -39,8 +39,8 @@
         <thead class="text-gray-700 uppercase bg-gray-50">
         <tr>
             <th class="text-sm"></th>
-            <th>Account</th>
-            <th>Receiver</th>
+            <th>From</th>
+            <th>To</th>
             <th>Description</th>
             <th>Amount</th>
             <th>Amount After</th>
@@ -54,7 +54,7 @@
         @foreach( $transactions as $transaction)
             <tr>
                 <td><input wire:model="selectedTransactions" value="{{ $transaction->id }}" type="checkbox"></td>
-                <td>{{ $transaction->account }}</td>
+                <td>{{ $transaction->sender }}</td>
                 <td>{{ $transaction->receiver }}</td>
                 <td>{{ $transaction->description }}</td>
                 <td>{{ $transaction->amount }}</td>
