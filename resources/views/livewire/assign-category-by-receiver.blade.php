@@ -30,7 +30,7 @@
         <select wire:model="selectedCategory">
             @foreach( $categories as $category)
                 @if( $category->name === $selectedCategory)
-                    <option value="{{ $category->name }} selected>{{ $category->name }}</option>
+                    <option value="{{ $category->name }}" selected>{{ $category->name }}</option>
                 @else
                     <option value="{{ $category->name }}">{{ $category->name }}</option>
                 @endif

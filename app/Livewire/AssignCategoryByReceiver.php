@@ -19,15 +19,21 @@ class AssignCategoryByReceiver extends Component
     public function render()
     {
         $this->selectedAccount = Account::first()->name;
-        $this->selectedReceiver = Account::find($this->selectedAccount)->transactions()->first()->receiver;
 
-        $receivers = Account::find($this->selectedAccount)->transactions()->distinct('receiver')->get('receiver')->toArray();
 
-        foreach ($receivers as $receiver)
+        $receivers = Account::find($this->selectedAccount)
+            ->transactions()
+            ->distinct('receiver')
+            ->orderBy('receiver')
+            ->get('receiver');
+
+        $this->selectedReceiver = $receivers->first();
+
+        foreach ($receivers->unique('receiver')->toArray() as $receiver)
             $this->receivers[] = $receiver['receiver'];
 
         $this->categories = Category::all();
-        $this->selectedCategory = $this->categories->first();
+        $this->selectedCategory = $this->categories->first()->name;
 
         return view('livewire.assign-category-by-receiver',['accounts'=>Account::all()]);
     }

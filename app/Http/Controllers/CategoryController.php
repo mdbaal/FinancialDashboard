@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use function PHPUnit\TestFixture\func;
 
@@ -15,7 +16,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('categories',['categories'=>Category::all()]);
+        $categories = Category::all();
+        $countPerCat =[];
+
+        foreach ($categories as $category)
+            $countPerCat[$category->name] = Transaction::where('category','=', $category->name)->count();
+
+        return view('categories',['categories'=>$categories,'countPerCat'=>$countPerCat]);
     }
 
     /**

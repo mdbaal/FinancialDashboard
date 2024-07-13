@@ -1,8 +1,8 @@
-<div class="border-2 border-gray-200 rounded drop-shadow-2xl account-biggest-expenses" >
+<div class="border-2 border-gray-200 rounded drop-shadow-2xl account-biggest-expenses">
 
     <select wire:model="currentFilterYear" wire:change="refreshChart">
         @foreach($filterYears as $filterYear)
-            @if($filterYear == $currentFilterYear)
+            @if($filterYear === $currentFilterYear)
                 <option selected>{{$filterYear}}</option>
             @else
                 <option>{{$filterYear}}</option>
@@ -11,9 +11,9 @@
     </select>
 
     <select wire:model="currentFilterMonth.0" wire:change="updateFilterMonth">
-        <option value="Total">Total</option>
+        <option value="0">Total</option>
         @foreach($filterMonths as $month)
-            @if($month == $currentFilterMonth)
+            @if($month[0] === $currentFilterMonth[0])
                 <option value="{{ $month[0] }}" selected>{{ $month[1] }}</option>
             @else
                 <option value="{{ $month[0] }}">{{ $month[1] }}</option>
@@ -33,7 +33,7 @@
                     categories.push(
                         {
                             x: key,
-                            y:value
+                            y: value
                         }
                     );
                 }
@@ -77,9 +77,9 @@
                     stroke: {
                         width: 3,
                     },
-                    plotOptions:{
-                        bar:{
-                            distributed:true
+                    plotOptions: {
+                        bar: {
+                            distributed: true
                         }
                     },
                     series: [{
@@ -98,7 +98,7 @@
                 }
 
 
-                let chart = new ApexCharts(document.getElementById('{{ $account->name }}' +'-chart'),options);
+                let chart = new ApexCharts(document.getElementById('{{ $account->name }}' + '-chart'), options);
 
                 chart.render();
 
@@ -119,7 +119,7 @@
                         categories.push(
                             {
                                 x: key,
-                                y:value
+                                y: value
                             }
                         );
                     }
@@ -131,7 +131,7 @@
                             name: "Total spent",
                             data: categories,
                         }],
-                    }).then(()=>{
+                    }).then(() => {
                         chart.render()
                     });
                 });
