@@ -88,7 +88,7 @@
                     'id' => null,
                     'account' => $transaction["IBAN/BBAN"],
                     'sender' => $sender,
-                    'receiver' => $transaction["Naam tegenpartij"],
+                    'receiver' => $receiver,
                     'description' => $transaction["Omschrijving-1"],
                     'amount' => $amount,
                     'amount_after' => str_replace(',', '.', $transaction["Saldo na trn"]),
