@@ -214,23 +214,80 @@
     .dashboard-account select {
         border-radius: 3px;
     }
-
+    
     .assign-by-receiver {
         display: flex;
         flex-direction: row;
         gap: 20px;
         width: 100%;
+        max-width: 100%;
         justify-content: space-between;
     }
 
     .assign-by-receiver-select {
         display: flex;
         flex-direction: column;
+        justify-content: end;
     }
 
-    .assign-by-receiver-select select {
+    .assign-by-receiver-select .search-input {
         border-radius: 3px;
     }
 
+    .search-input {
+
+    }
+
+    .search-options {
+        display: none;
+    }
+
+    .search-results {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid theme('colors.neutral.400');
+        border-top: none;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+        z-index: 999;
+        position: relative;
+        max-height: 200px;
+        overflow-y: scroll;
+    }
+
+    .search-result:not(:first-child) {
+        border-top: 1px solid theme('colors.neutral.400');
+    }
+
+    .search-result {
+        padding: 10px;
+    }
+
+    .search-result:hover {
+        cursor: pointer;
+        background-color: theme('colors.neutral.300');
+    }
+
+    .search-selects {
+        border-left: 1px solid theme('colors.neutral.400');
+        border-right: 1px solid theme('colors.neutral.400');
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        flex-wrap: wrap;
+        max-width: 100%;
+    }
+
+    .search-selected {
+        background-color: theme('colors.gray.600');
+        color: #FFF;
+        padding: 5px;
+        border-radius: 3px;
+    }
+
+    .search-selected:hover {
+        cursor: pointer;
+    }
 
 }
