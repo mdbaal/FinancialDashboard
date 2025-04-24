@@ -11,20 +11,8 @@
             @endforeach
         </select>
     </div>
-    
-    <div wire:ignore class="assign-by-receiver-select">
-        <label>Receivers (Can select multiple at the same time)</label>
-        <select id="selectReceivers" wire:model="selectedReceivers" multiple>
-            @foreach( $receivers as $receiver)
-                @if( in_array($receiver,$selectedReceivers))
-                    <option value="{{ $receiver }}" selected>{{ $receiver }}</option>
-                @else
-                    <option value="{{ $receiver }}">{{ $receiver }}</option>
-                @endif
-            @endforeach
-        </select>
-    </div>
 
+    <livewire:searchable-select wire:model="selectedReceivers" :options="$receivers"></livewire:searchable-select>
 
     <div class="assign-by-receiver-select">
         <label>Category</label>
